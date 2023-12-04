@@ -1,29 +1,21 @@
 const slides = [
 	{
-		"image":"slide1.jpg",
+		"image":"./assets/images/slideshow/slide1.jpg",
 		"tagLine":"Impressions tous formats <span>en boutique et en ligne</span>"
 	},
 	{
-		"image":"slide2.jpg",
+		"image":"./assets/images/slideshow/slide2.jpg",
 		"tagLine":"Tirages haute définition grand format <span>pour vos bureaux et events</span>"
 	},
 	{
-		"image":"slide3.jpg",
+		"image":"./assets/images/slideshow/slide3.jpg",
 		"tagLine":"Grand choix de couleurs <span>de CMJN aux pantones</span>"
 	},
 	{
-		"image":"slide4.png",
+		"image":"./assets/images/slideshow/slide4.png",
 		"tagLine":"Autocollants <span>avec découpe laser sur mesure</span>"
 	}
 ]
-
-document.querySelector('.arrow_left').addEventListener('click', () => {
-	console.log("Vous avez cliqué hihi")
-})
-
-document.querySelector('.arrow_right').addEventListener('click', () => {
-	console.log("Vous avez cliqué haha")
-})
 
 /*****ul create element*******/
 let dotsContainer = document.querySelector('.dots');
@@ -31,7 +23,8 @@ let ulElement = document.createElement('ul');
 
 let parentElement = document.querySelector('ul');
 let childElements = parentElement.querySelectorAll('li');
-let numberOfPoints = childElements.length;
+
+numberOfPoints = slides.length;
 
 for (let i=0; i < numberOfPoints; i++) {
 	let liElement = document.createElement('li');
@@ -46,3 +39,18 @@ let firstLi = ulElement.querySelector('li:first-child');
 firstLi.classList.add('dot_selected');
 
 console.log("Nombre de petits chibidis:", numberOfPoints);
+
+/*****Click for carousel arrows***/
+let currentIndex = 0;
+const TotalSlides = slides.length;
+
+const arrowRight = document.querySelector('.arrow_right');
+const bannerImg = document.getElementById("banner");
+
+arrowRight.addEventListener('click', () => {
+	currentIndex = (currentIndex + 1) % TotalSlides;
+	const currentSlide = slides[currentIndex];
+	const ImageTagLine = currentSlide.tagLine;
+
+	bannerImg.innerHTML = `<img src=${currentSlide.image} alt="Slide ${currentIndex + 1}"> <p>${currentSlide.tagLine}</p>`;
+});
