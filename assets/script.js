@@ -35,8 +35,8 @@ for (let i=0; i < numberOfPoints; i++) {
 dotsContainer.appendChild(ulElement);
 ulElement.classList.add('dots');
 
-let firstLi = ulElement.querySelector('li:first-child');
-firstLi.classList.add('dot_selected');
+/*let firstLi = ulElement.querySelector('li:first-child');
+firstLi.classList.add('dot_selected');*/
 
 console.log("Nombre de petits chibidis:", numberOfPoints);
 
@@ -45,12 +45,24 @@ let currentIndex = 0;
 const TotalSlides = slides.length;
 
 const arrowRight = document.querySelector('.arrow_right');
-const bannerImg = document.getElementById("banner");
+const bannerImg = document.querySelector(".banner__all-img");
 
 arrowRight.addEventListener('click', () => {
 	currentIndex = (currentIndex + 1) % TotalSlides;
+	/*liElement = (liElement + 1) % ulElement;
+	liElement.classList.add('dot_selected');*/
 	const currentSlide = slides[currentIndex];
 	const ImageTagLine = currentSlide.tagLine;
 
-	bannerImg.innerHTML = `<img src=${currentSlide.image} alt="Slide ${currentIndex + 1}"> <p>${currentSlide.tagLine}</p>`;
+	bannerImg.innerHTML = `<img src=${currentSlide.image} alt="Slide ${currentIndex + 1}"> <p>${ImageTagLine}</p>`;
 });
+
+const arrowLeft = document.querySelector('.arrow_left');
+
+arrowLeft.addEventListener('click', () => {
+	currentIndex = (currentIndex - 1 + TotalSlides) % TotalSlides;
+	const currentSlide = slides[currentIndex];
+	const ImageTagLine = currentSlide.tagLine;
+
+	bannerImg.innerHTML = `<img src=${currentSlide.image} alt="Slide ${currentIndex - 1}"> <p>${ImageTagLine}</p>`;
+})
