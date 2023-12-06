@@ -17,6 +17,21 @@ const slides = [
 	}
 ]
 
+/*****CLASS for SLIDES*****/
+
+const imgBanner = document.querySelector(".banner__all-img");
+
+slides.forEach((slide, index) => {
+	const imgElement = document.createElement('img');
+	imgElement.src = slide.image;
+	imgElement.classList.add('banner-img');
+	imgElement.alt = `Slide ${index + 1}`;
+
+	const imgBanner = document.querySelector(".banner__all-img");
+	imgBanner.appendChild(imgElement);
+
+})
+
 /*****ul create element*******/
 let dotsContainer = document.querySelector('.dots');
 let ulElement = document.createElement('ul');
