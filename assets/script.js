@@ -24,6 +24,7 @@ const imgBanner = document.querySelector(".banner__all-img");
 slides.forEach((slide, index) => {
 	const imgElement = document.createElement('img');
 	imgElement.src = slide.image;
+	imgElement.id = index;
 	imgElement.classList.add('banner-img');
 	imgElement.alt = `Slide ${index + 1}`;
 
@@ -44,6 +45,8 @@ numberOfPoints = slides.length;
 for (let i=0; i < numberOfPoints; i++) {
 	let liElement = document.createElement('li');
 	liElement.classList.add('dot');
+	liElement.href = `#{index}`;
+	liElement.classList.add('dot_selected');
 	ulElement.appendChild(liElement);
 }
 
@@ -53,7 +56,12 @@ ulElement.classList.add('dots');
 /*let firstLi = ulElement.querySelector('li:first-child');
 firstLi.classList.add('dot_selected');*/
 
-console.log("Nombre de petits chibidis:", numberOfPoints);
+/*****lielement active class */
+
+/*const allliElements = [...document.getElementsByClassName('dot')];
+allliElements.map(liElement => liElement.classList.remove('dot_selected'));
+
+document.querySelector(`a[href='#${currentIndex}']`).classList.add('dot_selected');
 
 /*****Click for carousel arrows***/
 let currentIndex = 0;
@@ -64,8 +72,6 @@ const bannerImg = document.querySelector(".banner__all-img");
 
 arrowRight.addEventListener('click', () => {
 	currentIndex = (currentIndex + 1) % TotalSlides;
-	/*liElement = (liElement + 1) % ulElement;
-	liElement.classList.add('dot_selected');*/
 	const currentSlide = slides[currentIndex];
 	const ImageTagLine = currentSlide.tagLine;
 
