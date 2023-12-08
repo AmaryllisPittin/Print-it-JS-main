@@ -21,6 +21,17 @@ const slides = [
 
 const imgBanner = document.querySelector(".banner__all-img");
 
+/*function showFirstSlide() {
+	const firstSlide = slides[0];
+	const imgElement = document.createElement('img');
+	imgElement.src = slide.image;
+	imgElement.id = index[0];
+	imgElement.classList.add('banner-img');
+	imgElement.alt = `Slide 1`;
+
+	imgBanner.appendChild(imgElement);
+}*/
+
 slides.forEach((slide, index) => {
 	const imgElement = document.createElement('img');
 	imgElement.src = slide.image;
@@ -28,13 +39,13 @@ slides.forEach((slide, index) => {
 	imgElement.classList.add('banner-img');
 	imgElement.alt = `Slide ${index + 1}`;
 
-	const imgBanner = document.querySelector(".banner__all-img");
+	/*const imgBanner = document.querySelector(".banner__all-img");*/
 	imgBanner.appendChild(imgElement);
 
-})
+});
 
 /*****ul create element*******/
-let dotsContainer = document.querySelector('.dots');
+/*let dotsContainer = document.querySelector('.dots');
 let ulElement = document.createElement('ul');
 
 let parentElement = document.querySelector('ul');
@@ -51,20 +62,23 @@ for (let i=0; i < numberOfPoints; i++) {
 }
 
 dotsContainer.appendChild(ulElement);
-ulElement.classList.add('dots');
+ulElement.classList.add('dots');*/
 
-/*let firstLi = ulElement.querySelector('li:first-child');
-firstLi.classList.add('dot_selected');*/
 
-/*****lielement active class */
+let dotsContainer = document.querySelector('.dots');
 
-/*const allliElements = [...document.getElementsByClassName('dot')];
-allliElements.map(liElement => liElement.classList.remove('dot_selected'));
+numberOfPoints = slides.length;
 
-document.querySelector(`a[href='#${currentIndex}']`).classList.add('dot_selected');
+for (let i=0; i < numberOfPoints; i++) {
+let bulletElement = document.createElement("a");
+bulletElement.href = `#{index}`;
+bulletElement.classList.add("dot");
+dotsContainer.appendChild(bulletElement);
+}
+
 
 /*****Click for carousel arrows***/
-let currentIndex = 0;
+ let currentIndex = 0;
 const TotalSlides = slides.length;
 
 const arrowRight = document.querySelector('.arrow_right');
@@ -75,7 +89,7 @@ arrowRight.addEventListener('click', () => {
 	const currentSlide = slides[currentIndex];
 	const ImageTagLine = currentSlide.tagLine;
 
-	bannerImg.innerHTML = `<img src=${currentSlide.image} alt="Slide ${currentIndex + 1}"> <p>${ImageTagLine}</p>`;
+	bannerImg.innerHTML = `<img src=${currentSlide.image} alt="Slide ${currentIndex + 1}" class="banner-img"> <p>${ImageTagLine}</p>`;
 });
 
 const arrowLeft = document.querySelector('.arrow_left');
@@ -85,5 +99,5 @@ arrowLeft.addEventListener('click', () => {
 	const currentSlide = slides[currentIndex];
 	const ImageTagLine = currentSlide.tagLine;
 
-	bannerImg.innerHTML = `<img src=${currentSlide.image} alt="Slide ${currentIndex - 1}"> <p>${ImageTagLine}</p>`;
+	bannerImg.innerHTML = `<img src=${currentSlide.image} alt="Slide ${currentIndex - 1}" class="banner-img"> <p>${ImageTagLine}</p>`;
 })
