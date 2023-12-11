@@ -32,6 +32,8 @@ const imgBanner = document.querySelector(".banner__all-img");
 	imgBanner.appendChild(imgElement);
 }*/
 
+let currentIndex = 0;
+
 slides.forEach((slide, index) => {
 	const imgElement = document.createElement('img');
 	imgElement.src = slide.image;
@@ -43,6 +45,19 @@ slides.forEach((slide, index) => {
 	imgBanner.appendChild(imgElement);
 
 });
+
+updateCarouselContent();
+
+function updateCarouselContent() {
+	const activeIndex = 0;
+	imgBanner.innerHTML = '';
+	const firstImg = document.createElement('img');
+	firstImg.src = slides[activeIndex].image;
+	firstImg.classList.add('banner-img');
+	firstImg.alt = `Slide ${activeIndex + 1}`;
+
+	imgBanner.appendChild(firstImg);
+}
 
 /*****ul create element*******/
 /*let dotsContainer = document.querySelector('.dots');
@@ -66,6 +81,7 @@ ulElement.classList.add('dots');*/
 
 
 let dotsContainer = document.querySelector('.dots');
+const dotElement = document.querySelectorAll('.dot');
 
 numberOfPoints = slides.length;
 
@@ -76,20 +92,33 @@ bulletElement.classList.add("dot");
 dotsContainer.appendChild(bulletElement);
 }
 
+function updateIndicator(activeIndex) {
+	dotElement.forEach((dot, index) => {
+		if (index === activeIndex) {
+			dot.classList.add('dot_selected');
+		} else {
+			dot.classList.remove('dot_selected');
+		}
+	})
+};
 
 /*****Click for carousel arrows***/
- let currentIndex = 0;
 const TotalSlides = slides.length;
 
 const arrowRight = document.querySelector('.arrow_right');
 const bannerImg = document.querySelector(".banner__all-img");
+const startTagLine = document.querySelector('.banner-img-tagLine');
 
 arrowRight.addEventListener('click', () => {
 	currentIndex = (currentIndex + 1) % TotalSlides;
 	const currentSlide = slides[currentIndex];
 	const ImageTagLine = currentSlide.tagLine;
 
+
 	bannerImg.innerHTML = `<img src=${currentSlide.image} alt="Slide ${currentIndex + 1}" class="banner-img"> <p>${ImageTagLine}</p>`;
+	if (startTagLine) {
+		startTagLine.remove();
+	}
 });
 
 const arrowLeft = document.querySelector('.arrow_left');
@@ -100,4 +129,7 @@ arrowLeft.addEventListener('click', () => {
 	const ImageTagLine = currentSlide.tagLine;
 
 	bannerImg.innerHTML = `<img src=${currentSlide.image} alt="Slide ${currentIndex - 1}" class="banner-img"> <p>${ImageTagLine}</p>`;
+	startTagLine.remove();
 })
+
+document.querySelector(`a[href='#${currentIndex}']`).classList.add("dot_selected");
