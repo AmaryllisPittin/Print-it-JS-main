@@ -20,18 +20,6 @@ const slides = [
 /*****CLASS for SLIDES*****/
 
 const imgBanner = document.querySelector(".banner__all-img");
-
-/*function showFirstSlide() {
-	const firstSlide = slides[0];
-	const imgElement = document.createElement('img');
-	imgElement.src = slide.image;
-	imgElement.id = index[0];
-	imgElement.classList.add('banner-img');
-	imgElement.alt = `Slide 1`;
-
-	imgBanner.appendChild(imgElement);
-}*/
-
 let currentIndex = 0;
 
 slides.forEach((slide, index) => {
@@ -41,7 +29,6 @@ slides.forEach((slide, index) => {
 	imgElement.classList.add('banner-img');
 	imgElement.alt = `Slide ${index + 1}`;
 
-	/*const imgBanner = document.querySelector(".banner__all-img");*/
 	imgBanner.appendChild(imgElement);
 
 });
@@ -59,26 +46,7 @@ function updateCarouselContent() {
 	imgBanner.appendChild(firstImg);
 }
 
-/*****ul create element*******/
-/*let dotsContainer = document.querySelector('.dots');
-let ulElement = document.createElement('ul');
-
-let parentElement = document.querySelector('ul');
-let childElements = parentElement.querySelectorAll('li');
-
-numberOfPoints = slides.length;
-
-for (let i=0; i < numberOfPoints; i++) {
-	let liElement = document.createElement('li');
-	liElement.classList.add('dot');
-	liElement.href = `#{index}`;
-	liElement.classList.add('dot_selected');
-	ulElement.appendChild(liElement);
-}
-
-dotsContainer.appendChild(ulElement);
-ulElement.classList.add('dots');*/
-
+/*****bullet create element*******/
 
 let dotsContainer = document.querySelector('.dots');
 const dotElement = document.querySelectorAll('.dot');
@@ -87,20 +55,10 @@ numberOfPoints = slides.length;
 
 for (let i=0; i < numberOfPoints; i++) {
 let bulletElement = document.createElement("a");
-bulletElement.href = `#{index}`;
+bulletElement.href = '';
 bulletElement.classList.add("dot");
 dotsContainer.appendChild(bulletElement);
 }
-
-function updateIndicator(activeIndex) {
-	dotElement.forEach((dot, index) => {
-		if (index === activeIndex) {
-			dot.classList.add('dot_selected');
-		} else {
-			dot.classList.remove('dot_selected');
-		}
-	})
-};
 
 /*****Click for carousel arrows***/
 const TotalSlides = slides.length;
@@ -131,5 +89,3 @@ arrowLeft.addEventListener('click', () => {
 	bannerImg.innerHTML = `<img src=${currentSlide.image} alt="Slide ${currentIndex - 1}" class="banner-img"> <p>${ImageTagLine}</p>`;
 	startTagLine.remove();
 })
-
-document.querySelector(`a[href='#${currentIndex}']`).classList.add("dot_selected");
