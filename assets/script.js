@@ -17,105 +17,53 @@ const slides = [
 	}
 ]
 
-/*****CLASS for SLIDES*****/
-
 const dotsContainer = document.querySelector('.dots');
 const imgBanner = document.querySelector(".banner__all-img");
-const numberOfPoints = slides.length;
+const arrowLeft = document.querySelector('.arrow_left');
+const arrowRight = document.querySelector('.arrow_right');
+const startTagLine = document.querySelector('.banner-img-tagLine');
+
 let currentIndex = 0;
 
-slides.forEach((slide, index) => {
-	const imgElement = document.createElement('img');
-	imgElement.src = slide.image;
-	imgElement.id = index;
-	imgElement.classList.add('banner-img');
-	imgElement.alt = `Slide ${index + 1}`;
-
-	imgBanner.appendChild(imgElement);
-
-});
-
-updateCarouselContent();
-
 function updateCarouselContent() {
-	let activeIndex = 0;
-	imgBanner.innerHTML = '';
-	const firstImg = document.createElement('img');
-	firstImg.src = slides[activeIndex].image;
-	firstImg.classList.add('banner-img');
-	firstImg.alt = `Slide ${activeIndex + 1}`;
-
-	imgBanner.appendChild(firstImg);
+	imgBanner.innerHTML = `<img src=${slides[currentIndex].image} alt="Slide ${currentIndex + 1}" class="banner-img">`;
+	startTagLine.innerHTML = slides[currentIndex].tagLine;
 }
 
-/*****bullet create element*******/
-
-const dotElements = [];
-
 function createDots() {
-	for (let i=0; i < numberOfPoints; i++) {
+	for (let i=0; i < slides.length; i++) {
 		let bulletElement = document.createElement("a");
 		bulletElement.href = '#';
 		bulletElement.classList.add("dot");
 		dotsContainer.appendChild(bulletElement);
-		dotElements.push(bulletElement);
 	}
 }
 
 function updateDots() {
-	dotElements.forEach(dot =>  {
-		dot.classList.remove('dot_selected');
+	const dotElements = document.querySelectorAll('.dot');
+	dotElements.forEach((dot, index) =>  {
+		dot.classList.toggle('dot_selected', index === currentIndex);
 	});
-	dotElements[currentIndex].classList.add('dot_selected');
 }
 
-function changeSlide(index) {
-	currentIndex = index;
-
+function changeSlide(direction) {
+	if (direction === 'right') {
+		currentIndex = (currentIndex + 1) % slides.length;
+	} else {
+		currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+	}
+	updateCarouselContent();
 	updateDots();
 }
 
-createDots();
-
-const firstDot = document.querySelector(".dot:first-of-type");
-if (firstDot) {
-firstDot.classList.add("dot_selected");
-}
-
-
-
-/*****Click for carousel arrows***/
-const TotalSlides = slides.length;
-
-const arrowRight = document.querySelector('.arrow_right');
-const bannerImg = document.querySelector(".banner__all-img");
-const startTagLine = document.querySelector('.banner-img-tagLine');
-
 arrowRight.addEventListener('click', () => {
-	currentIndex = (currentIndex + 1) % TotalSlides;
-	const currentSlide = slides[currentIndex];
-	const ImageTagLine = currentSlide.tagLine;
-	dotIndex = (dotIndex + 1) % numberOfPoints;
-	changeSlide(currentIndex);
-
-	bannerImg.innerHTML = `<img src=${currentSlide.image} alt="Slide ${currentIndex + 1}" class="banner-img"> <p>${ImageTagLine}</p>`;
-	if (startTagLine) {
-		startTagLine.remove();
-	}
+	changeSlide('right');
 });
 
-const arrowLeft = document.querySelector('.arrow_left');
-let dotIndex = dotElements;
-
 arrowLeft.addEventListener('click', () => {
-	currentIndex = (currentIndex - 1 + TotalSlides) % TotalSlides;
-	const currentSlide = slides[currentIndex];
-	const ImageTagLine = currentSlide.tagLine;
-	dotIndex = (dotIndex - 1 + numberOfPoints) % numberOfPoints;
-	changeSlide(currentIndex);
+	changeSlide('left');
+});
 
-	bannerImg.innerHTML = `<img src=${currentSlide.image} alt="Slide ${currentIndex - 1}" class="banner-img"> <p>${ImageTagLine}</p>`;
-	startTagLine.remove();
-})
-
-
+createDots();
+updateCarouselContent();
+updateDots();
